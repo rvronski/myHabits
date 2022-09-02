@@ -17,6 +17,7 @@ class InfoViewController: UIViewController {
     
     private lazy var headerLabel: UILabel = {
        let headerLabel = UILabel()
+        headerLabel.font = UIFont(name: "SFProDisplay-Semibold", size: 20)
         headerLabel.text = "Привычка за 21 день"
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         return headerLabel

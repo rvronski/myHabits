@@ -11,9 +11,28 @@ class HabitsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.setupNavigationBar()
+        self.setupView()
+       
     }
 
-
+    private func setupNavigationBar() {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.title = "Сегодня"
+        let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentHabitVC))
+        button.tintColor = .purple
+        navigationItem.rightBarButtonItem = button
+        
+    }
+    private func setupView() {
+        self.view.backgroundColor = .white
+    }
+    
+    @objc func presentHabitVC() {
+        let vc = HabitViewController()
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true)
+    }
+    
 }
 
