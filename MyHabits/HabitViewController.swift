@@ -11,64 +11,91 @@ class HabitViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.setupNavigationBar()
+        self.setupNavigationBar()
         self.setupView()
-        self.cancelGesture()
+       
     }
+    private lazy var timeLabel: UILabel = {
+       let timeLabel = UILabel()
+        timeLabel.text = "Каждый день в"
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        return timeLabel
+    }()
+    private lazy var datePicker: UIDatePicker = {
+        let datePicker = UIDatePicker()
+        datePicker.datePickerMode = .time
+        datePicker.backgroundColor = .white
+        datePicker.tintColor = .purple
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        
+        return datePicker
     
-    private lazy var cancelLabel: UILabel = {
-       let cancel = UILabel()
-        cancel.translatesAutoresizingMaskIntoConstraints = false
-        cancel.text = "Отменить"
-        cancel.textColor = .systemPurple
-        cancel.isUserInteractionEnabled = true
-        return cancel
     }()
     
-    private lazy var saveLabel: UILabel = {
-       let save = UILabel()
-        save.translatesAutoresizingMaskIntoConstraints = false
-        save.text = "Сохранить"
-        save.textColor = .systemPurple
-        save.isUserInteractionEnabled = true
-        return save
+    private lazy var descriptionLabel: UILabel = {
+        let descriptionLabel = UILabel()
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.text = "НАЗВАНИЕ"
+        descriptionLabel.font = UIFont(name: "SFProText-Semibold", size: 13)
+        return descriptionLabel
     }()
-//    private func setupNavigationBar() {
-//
-//        self.navigationItem.title = "Создать"
-//        let leftButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(popVC))
-//        leftButton.tintColor = .blue
-//        navigationItem.leftBarButtonItem = leftButton
-//
-//
-//    }
-//
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        navigationController?.setNavigationBarHidden(false, animated: false)
-//    }
+    
+    private lazy var descriptionText: UITextField = {
+        let descriptionText = UITextField()
+        descriptionText.translatesAutoresizingMaskIntoConstraints = false
+        descriptionText.placeholder = "Бегать по утрам, спать 8 часов и т.п."
+        descriptionText.becomeFirstResponder()
+        return descriptionText
+    }()
+    
+    private func setupNavigationBar() {
+        
+        self.navigationItem.title = "Создать"
+        let leftButton = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(popVC))
+        let rightButton = UIBarButtonItem(title: "Сохранить", style: .done, target: self, action: #selector(popVC))
+        leftButton.tintColor = .purple
+        rightButton.tintColor = .purple
+        navigationItem.leftBarButtonItem = leftButton
+        navigationItem.rightBarButtonItem = rightButton
+
+
+    }
+
+    
     private func setupView() {
-        self.view.backgroundColor = .gray
-        self.view.addSubview(cancelLabel)
-        self.view.addSubview(saveLabel)
+        self.view.backgroundColor = .white
+        self.view.addSubview(datePicker)
+        self.view.addSubview(timeLabel)
+        self.view.addSubview(descriptionText)
+        self.view.addSubview(descriptionLabel)
+        
+      
         
         NSLayoutConstraint.activate([
-            self.cancelLabel.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 55),
-            self.cancelLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 16),
-
-            self.saveLabel.centerYAnchor.constraint(equalTo: self.cancelLabel.centerYAnchor),
-            self.saveLabel.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -16),
-
-
-
-
+        
+            self.descriptionLabel.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 21),
+            self.descriptionLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 16),
+            self.descriptionText.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 16),
+            self.descriptionText.topAnchor.constraint(equalTo: self.descriptionLabel.bottomAnchor, constant: 7),
+            
+            self.datePicker.centerYAnchor.constraint(equalTo: self.timeLabel.centerYAnchor),
+            self.datePicker.leftAnchor.constraint(equalTo: self.timeLabel.rightAnchor, constant: 10),
+            
+            self.timeLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
+            self.timeLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 16),
+        
+        
+        
         ])
+            
+            
+
+
+
+       
     }
     
-    private func cancelGesture() {
-        let gestureCancel = UITapGestureRecognizer(target: self, action: #selector(popVC))
-        self.cancelLabel.addGestureRecognizer(gestureCancel)
-    }
+   
     @objc func popVC() {
         self.dismiss(animated: true, completion: nil)
     }
