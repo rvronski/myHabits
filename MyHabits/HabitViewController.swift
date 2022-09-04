@@ -13,6 +13,7 @@ class HabitViewController: UIViewController {
         super.viewDidLoad()
         self.setupNavigationBar()
         self.setupView()
+        self.gestureImage()
        
     }
     private lazy var timeLabel: UILabel = {
@@ -47,6 +48,17 @@ class HabitViewController: UIViewController {
         descriptionText.becomeFirstResponder()
         return descriptionText
     }()
+    private lazy var colorImage: UIImageView = {
+        let colorImage = UIImageView()
+        colorImage.translatesAutoresizingMaskIntoConstraints = false
+//        colorImage.image = UIImage(systemName: "circle.fill")
+        colorImage.isUserInteractionEnabled = true
+        colorImage.backgroundColor = .blue
+        colorImage.clipsToBounds = true
+        
+        
+        return colorImage
+    }()
     
     private func setupNavigationBar() {
         
@@ -60,7 +72,12 @@ class HabitViewController: UIViewController {
 
 
     }
-
+    
+       
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.colorImage.layer.cornerRadius = self.colorImage.frame.height/2
+    }
     
     private func setupView() {
         self.view.backgroundColor = .white
@@ -68,6 +85,8 @@ class HabitViewController: UIViewController {
         self.view.addSubview(timeLabel)
         self.view.addSubview(descriptionText)
         self.view.addSubview(descriptionLabel)
+        self.view.addSubview(colorImage)
+//        self.colorImage.layer.cornerRadius = self.colorImage.frame.height/2
         
       
         
@@ -84,7 +103,12 @@ class HabitViewController: UIViewController {
             self.timeLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
             self.timeLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 16),
         
-        
+            self.colorImage.topAnchor.constraint(equalTo: self.descriptionText.bottomAnchor, constant: 20),
+            self.colorImage.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 30),
+            self.colorImage.widthAnchor.constraint(lessThanOrEqualTo: self.view.widthAnchor, multiplier: 0.07246),
+            self.colorImage.heightAnchor.constraint(equalTo: self.colorImage.widthAnchor)
+            
+            
         
         ])
             
@@ -96,7 +120,28 @@ class HabitViewController: UIViewController {
     }
     
    
+    private func gestureImage() {
+        let gestureImage = UITapGestureRecognizer(target: self, action: #selector(openColorPickerController))
+        self.colorImage.addGestureRecognizer(gestureImage)
+    }
+    
+    @objc func openColorPickerController() {
+        let colorPicker = UIColorPickerViewController()
+        colorPicker.delegate = self
+        self.present(colorPicker, animated: true)
+    }
+    
     @objc func popVC() {
         self.dismiss(animated: true, completion: nil)
     }
+}
+
+extension HabitViewController: UIColorPickerViewControllerDelegate {
+
+    
+    func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
+        let color = viewController.selectedColor
+        self.colorImage.backgroundColor = color
+    }
+    
 }
