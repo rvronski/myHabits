@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol HabitsCollectionViewCellDelegate {
+   func tapCircle()
+}
+
 class HabitsCollectionViewCell: UICollectionViewCell {
     
     private lazy var habitLabel: UILabel = {
@@ -27,10 +31,10 @@ class HabitsCollectionViewCell: UICollectionViewCell {
         return counterLabel
     }()
     
-    private lazy var circleImage: UIImageView = {
+     lazy var circleImage: UIImageView = {
         let circleImage = UIImageView()
         circleImage.image = UIImage(systemName: "circle")
-//        circleImage.layer.borderWidth = 3
+        circleImage.isUserInteractionEnabled = true
         circleImage.translatesAutoresizingMaskIntoConstraints = false
         return circleImage
     }()
@@ -43,17 +47,30 @@ class HabitsCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super .init(frame: frame)
         self.setupView()
+        self.addGesture()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    var delegate: HabitsCollectionViewCellDelegate?
     func setup(with viewModel: Habit) {
         self.habitLabel.text = viewModel.name
         self.habitLabel.textColor = viewModel.color
         self.dateLabel.text = viewModel.dateString
         self.counterLabel.text = "Счётчик: \(viewModel.trackDates.count)"
         self.circleImage.tintColor = viewModel.color
+    }
+    func addGesture() {
+        let circleGesture = UITapGestureRecognizer(target: self, action: #selector(circleTap))
+        self.circleImage.addGestureRecognizer(circleGesture)
+    }
+    @objc func circleTap() {
+//        self.delegate?.tapCircle()
+       
+       self.circleImage.image = UIImage(systemName: "checkmark.circle.fill")
+//        HabitsStore.shared.track()
+        
     }
     
     private func setupView() {

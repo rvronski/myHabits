@@ -23,6 +23,7 @@ class HabitsViewController: UIViewController {
         let habitsCollection = UICollectionView(frame: .zero, collectionViewLayout: self.collectionLayout)
         habitsCollection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "DefultCell")
         habitsCollection.register(HabitsCollectionViewCell.self, forCellWithReuseIdentifier: "HabitsCell")
+        habitsCollection.register(ProgressCollectionViewCell.self, forCellWithReuseIdentifier: "ProgressCell")
         habitsCollection.backgroundColor = .systemGray6
         habitsCollection.delegate = self
         habitsCollection.dataSource = self
@@ -35,10 +36,11 @@ class HabitsViewController: UIViewController {
         super.viewDidLoad()
         self.setupNavigationBar()
         self.setupView()
-       
+        self.tabBarController?.tabBar.isHidden = false
     }
 
     private func setupNavigationBar() {
+        self.navigationController?.navigationBar.isHidden = false
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationItem.title = "Сегодня"
         let button = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(presentHabitVC))
@@ -75,12 +77,31 @@ class HabitsViewController: UIViewController {
     }
     
 }
-extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, HabitsCollectionViewCellDelegate {
+    func tapCircle() {
+        let collectionViewCell = HabitsCollectionViewCell()
+        collectionViewCell.circleImage.image = UIImage(systemName: "checkmark.circle.fill")
+//        let vc = HabitDetailsViewController()
+//        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        2
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        HabitsStore.shared.habits.count
+        if section == 0 {
+           return 1
+        }  else if section > 0 {
+       return HabitsStore.shared.habits.count
+        }
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if indexPath.section == 0 {
+            let cell0 = collectionView.dequeueReusableCell(withReuseIdentifier: "ProgressCell", for: indexPath) as! ProgressCollectionViewCell
+                return cell0
+        }
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HabitsCell", for: indexPath) as? HabitsCollectionViewCell else {
             let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "DefoultCell", for: indexPath)
             return cell
@@ -88,8 +109,14 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
         cell.setup(with: HabitsStore.shared.habits[indexPath.row])
         return cell
     }
+        
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.section == 0 {
+            let width = collectionView.frame.width - 33
+            let height = width * 0.17492711
+            return CGSize(width: width, height: height)
+        }
         let itemWidth = collectionView.frame.width - 33
         let itemHeight = itemWidth * 0.37900875
         

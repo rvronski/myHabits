@@ -113,25 +113,31 @@ class HabitViewController: UIViewController {
         ])
 }
     func restartApplication () {
-        let viewController = HabitsViewController()
-        let navCtrl = UINavigationController(rootViewController: viewController)
-
-        guard
-            let window = UIApplication.shared.keyWindow,
+        
+        let habitsController = UINavigationController(rootViewController: HabitsViewController())
+        let infoController = UINavigationController(rootViewController: InfoViewController())
+        let tabBarController = UITabBarController()
+        tabBarController.viewControllers = [ habitsController, infoController]
+        tabBarController.viewControllers?.enumerated().forEach {
+            $1.tabBarItem.title = $0 == 0 ? "Привычки" : "Информация"
+            $1.tabBarItem.image = $0 == 0 ? UIImage(systemName: "rectangle.grid.1x2.fill") : UIImage(systemName: "info.circle.fill")
+            guard
+                let window = UIApplication.shared.keyWindow,
                 let rootViewController = window.rootViewController
-                else {
-            return
+            else {
+                return
+            }
+            
+            tabBarController.view.frame = rootViewController.view.frame
+            habitsController.view.layoutIfNeeded()
+            
+            UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
+                window.rootViewController = tabBarController
+            })
+            
         }
-
-        navCtrl.view.frame = rootViewController.view.frame
-        navCtrl.view.layoutIfNeeded()
-
-        UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
-            window.rootViewController = navCtrl
-        })
-
     }
-   
+    
     private func gestureImage() {
         let gestureImage = UITapGestureRecognizer(target: self, action: #selector(openColorPickerController))
         self.colorImage.addGestureRecognizer(gestureImage)
@@ -157,8 +163,7 @@ class HabitViewController: UIViewController {
                              color: color)
         let store = HabitsStore.shared
         store.habits.append(newHabit)
-       
-//        HabitsStore.shared.habits.removeAll()
+    
         restartApplication()
         self.dismiss(animated: true, completion: nil)
     }
