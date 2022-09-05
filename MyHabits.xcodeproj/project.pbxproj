@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45401AB328C54CCA005E6C4B /* HabitsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45401AB228C54CCA005E6C4B /* HabitsCollectionViewCell.swift */; };
 		4549340028C0EB770070EAD6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 454933FF28C0EB770070EAD6 /* AppDelegate.swift */; };
 		4549340228C0EB770070EAD6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4549340128C0EB770070EAD6 /* SceneDelegate.swift */; };
 		4549340428C0EB770070EAD6 /* HabitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4549340328C0EB770070EAD6 /* HabitsViewController.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		45401AB228C54CCA005E6C4B /* HabitsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitsCollectionViewCell.swift; sourceTree = "<group>"; };
 		454933FC28C0EB770070EAD6 /* MyHabits.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyHabits.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		454933FF28C0EB770070EAD6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4549340128C0EB770070EAD6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				454933FF28C0EB770070EAD6 /* AppDelegate.swift */,
 				4549340128C0EB770070EAD6 /* SceneDelegate.swift */,
 				4549340328C0EB770070EAD6 /* HabitsViewController.swift */,
+				45401AB228C54CCA005E6C4B /* HabitsCollectionViewCell.swift */,
 				459C7E2D28C2B64D007FA652 /* HabitViewController.swift */,
 				4549341328C0EEEA0070EAD6 /* InfoViewController.swift */,
 				4549341528C0FCB80070EAD6 /*  HabitsStore.swift */,
@@ -143,6 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45401AB328C54CCA005E6C4B /* HabitsCollectionViewCell.swift in Sources */,
 				4549340428C0EB770070EAD6 /* HabitsViewController.swift in Sources */,
 				459C7E2E28C2B64D007FA652 /* HabitViewController.swift in Sources */,
 				4549341628C0FCB80070EAD6 /*  HabitsStore.swift in Sources */,

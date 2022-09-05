@@ -64,7 +64,7 @@ class HabitViewController: UIViewController {
         
         self.navigationItem.title = "Создать"
         let leftButton = UIBarButtonItem(title: "Отменить", style: .plain, target: self, action: #selector(popVC))
-        let rightButton = UIBarButtonItem(title: "Сохранить", style: .done, target: self, action: #selector(popVC))
+        let rightButton = UIBarButtonItem(title: "Сохранить", style: .done, target: self, action: #selector(saveHabit))
         leftButton.tintColor = .purple
         rightButton.tintColor = .purple
         navigationItem.leftBarButtonItem = leftButton
@@ -111,14 +111,26 @@ class HabitViewController: UIViewController {
             
         
         ])
-            
-            
+}
+    func restartApplication () {
+        let viewController = HabitsViewController()
+        let navCtrl = UINavigationController(rootViewController: viewController)
 
+        guard
+            let window = UIApplication.shared.keyWindow,
+                let rootViewController = window.rootViewController
+                else {
+            return
+        }
 
+        navCtrl.view.frame = rootViewController.view.frame
+        navCtrl.view.layoutIfNeeded()
 
-       
+        UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve, animations: {
+            window.rootViewController = navCtrl
+        })
+
     }
-    
    
     private func gestureImage() {
         let gestureImage = UITapGestureRecognizer(target: self, action: #selector(openColorPickerController))
@@ -132,12 +144,31 @@ class HabitViewController: UIViewController {
     }
     
     @objc func popVC() {
+       
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func saveHabit() {
+        let name = descriptionText.text ?? "Привычка не задана..."
+        let date = datePicker.date
+        let color = colorImage.backgroundColor ?? .clear
+        let newHabit = Habit(name: name,
+                             date: date,
+                             color: color)
+        let store = HabitsStore.shared
+        store.habits.append(newHabit)
+       
+//        HabitsStore.shared.habits.removeAll()
+        restartApplication()
         self.dismiss(animated: true, completion: nil)
     }
 }
-
 extension HabitViewController: UIColorPickerViewControllerDelegate {
-
+    
+    func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
+        let color = viewController.selectedColor
+        self.colorImage.backgroundColor = color
+    }
     
     func colorPickerViewControllerDidSelectColor(_ viewController: UIColorPickerViewController) {
         let color = viewController.selectedColor
