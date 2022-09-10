@@ -8,24 +8,38 @@
 import UIKit
 
 protocol HabitsCollectionViewCellDelegate {
-   func tapCircle()
+    func tapCircle(cell: HabitsCollectionViewCell)
 }
-
+//extension UIResponder {
+//    /**
+//     * Returns the next responder in the responder chain cast to the given type, or
+//     * if nil, recurses the chain until the next responder is nil or castable.
+//     */
+//    func next<U: UIResponder>(of type: U.Type = U.self) -> U? {
+//        return self.next.flatMap({ $0 as? U ?? $0.next() })
+//    }
+//}
 class HabitsCollectionViewCell: UICollectionViewCell {
     
-    private lazy var habitLabel: UILabel = {
+//    var collectionView: UICollectionView? {
+//            return self.next(of: UICollectionView.self)
+//        }
+        var indexPath: IndexPath? 
+    
+    
+     lazy var habitLabel: UILabel = {
         let habitLabel = UILabel()
         habitLabel.translatesAutoresizingMaskIntoConstraints = false
         return habitLabel
     }()
     
-    private lazy var dateLabel: UILabel = {
+     lazy var dateLabel: UILabel = {
         let dateLabel = UILabel()
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         return dateLabel
     }()
     
-    private lazy var counterLabel: UILabel = {
+    lazy var counterLabel: UILabel = {
         let counterLabel = UILabel()
         counterLabel.translatesAutoresizingMaskIntoConstraints = false
         return counterLabel
@@ -54,6 +68,7 @@ class HabitsCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     var delegate: HabitsCollectionViewCellDelegate?
+    
     func setup(with viewModel: Habit) {
         self.habitLabel.text = viewModel.name
         self.habitLabel.textColor = viewModel.color
@@ -66,11 +81,9 @@ class HabitsCollectionViewCell: UICollectionViewCell {
         self.circleImage.addGestureRecognizer(circleGesture)
     }
     @objc func circleTap() {
-//        self.delegate?.tapCircle()
+        self.delegate?.tapCircle(cell: self)
        
-       self.circleImage.image = UIImage(systemName: "checkmark.circle.fill")
-//        HabitsStore.shared.track()
-        
+       
     }
     
     private func setupView() {

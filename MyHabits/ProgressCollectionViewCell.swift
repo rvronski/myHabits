@@ -50,6 +50,7 @@ class ProgressCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(progressView)
         self.contentView.addSubview(procentLabel)
         self.backgroundColor = .systemBackground
+        self.progressView.setProgress(HabitsStore.shared.todayProgress, animated: true)
         NSLayoutConstraint.activate([
             self.motivationLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
             self.motivationLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 12),

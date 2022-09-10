@@ -9,7 +9,7 @@ import UIKit
 
 class HabitsViewController: UIViewController {
     
-    private lazy var collectionLayout: UICollectionViewFlowLayout = {
+     lazy var collectionLayout: UICollectionViewFlowLayout = {
         let collectionLayout = UICollectionViewFlowLayout()
         collectionLayout.scrollDirection = .vertical
     
@@ -19,7 +19,7 @@ class HabitsViewController: UIViewController {
         return collectionLayout
     }()
     
-    private lazy var habitsCollectionView: UICollectionView = {
+     lazy var habitsCollectionView: UICollectionView = {
         let habitsCollection = UICollectionView(frame: .zero, collectionViewLayout: self.collectionLayout)
         habitsCollection.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "DefultCell")
         habitsCollection.register(HabitsCollectionViewCell.self, forCellWithReuseIdentifier: "HabitsCell")
@@ -77,13 +77,33 @@ class HabitsViewController: UIViewController {
     }
     
 }
-extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, HabitsCollectionViewCellDelegate {
-    func tapCircle() {
-        let collectionViewCell = HabitsCollectionViewCell()
-        collectionViewCell.circleImage.image = UIImage(systemName: "checkmark.circle.fill")
-//        let vc = HabitDetailsViewController()
-//        self.navigationController?.pushViewController(vc, animated: true)
+extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, HabitDetailsViewDelegate, HabitsCollectionViewCellDelegate {
+    
+   
+    func tapCircle(cell: HabitsCollectionViewCell) {
+        let collection = self.habitsCollectionView
+//        if let collection = UICollectionView() {
+//            let index = collection.indexPath(for: self)
+//        let i = collection.indexPath(for: cell)?.item
+        guard let index = collection.indexPath(for:cell )?.item else {return}
+        print(index)
+        
+        let hab = HabitsStore.shared.habits[index]
+        HabitsStore.shared.track(hab)
+        cell.circleImage.image = UIImage(systemName: "checkmark.circle.fill")
+        
+        reload()
     }
+    
+
+    
+    func deleteItem(indexPath: IndexPath) {
+        HabitsStore.shared.habits.remove(at: indexPath.item)
+        self.habitsCollectionView.deleteItems(at: [indexPath])
+        self.habitsCollectionView.delegate = self
+    }
+    
+   
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         2
     }
@@ -107,7 +127,9 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
             return cell
         }
         cell.setup(with: HabitsStore.shared.habits[indexPath.row])
+        cell.delegate = self
         return cell
+        
     }
         
     
@@ -122,5 +144,23 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
         
         return CGSize(width: itemWidth, height: itemHeight)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section > 0 {
+        let details = HabitDetailsViewController()
+         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HabitsCell", for: indexPath) as! HabitsCollectionViewCell
+        cell.setup(with: HabitsStore.shared.habits[indexPath.row])
+            
+        
+        details.navigationItem.title = cell.habitLabel.text
+        self.navigationController?.pushViewController(details, animated: true)
+        }
+    }
+}
+extension HabitsViewController: HabitViewControllerDelegate {
+    func reload() {
+        self.habitsCollectionView.reloadData()
+    }
+    
     
 }

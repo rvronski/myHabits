@@ -6,7 +6,9 @@
 //
 
 import UIKit
-
+protocol HabitViewControllerDelegate: AnyObject {
+    func reload()
+}
 class HabitViewController: UIViewController {
     
     override func viewDidLoad() {
@@ -32,7 +34,7 @@ class HabitViewController: UIViewController {
         return datePicker
     
     }()
-    
+    weak var delegate: HabitViewControllerDelegate?
     private lazy var descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -112,7 +114,7 @@ class HabitViewController: UIViewController {
         
         ])
 }
-    func restartApplication () {
+   public func restartApplication () {
         
         let habitsController = UINavigationController(rootViewController: HabitsViewController())
         let infoController = UINavigationController(rootViewController: InfoViewController())
@@ -163,9 +165,14 @@ class HabitViewController: UIViewController {
                              color: color)
         let store = HabitsStore.shared
         store.habits.append(newHabit)
+        let collection = HabitsViewController().habitsCollectionView
+//        restartApplication()private func reloadData(displayedExercise: Exercise){
     
-        restartApplication()
+//        self.view.setNeedsDisplay()
+//        collection.reloadData()
+        self.delegate?.reload()
         self.dismiss(animated: true, completion: nil)
+        
     }
 }
 extension HabitViewController: UIColorPickerViewControllerDelegate {
