@@ -12,6 +12,8 @@ class ProgressCollectionViewCell: UICollectionViewCell {
     private lazy var motivationLabel: UILabel = {
         let label = UILabel()
         label.text = "Всё получится!"
+        label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
+        label.textColor = .systemGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -24,7 +26,9 @@ class ProgressCollectionViewCell: UICollectionViewCell {
     
     private lazy var procentLabel: UILabel = {
         let procentLabel = UILabel()
-        procentLabel.text = "50%"
+//        procentLabel.text = "50%"
+        procentLabel.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
+        procentLabel.textColor = .systemGray
         procentLabel.translatesAutoresizingMaskIntoConstraints = false
         return procentLabel
     }()
@@ -51,6 +55,7 @@ class ProgressCollectionViewCell: UICollectionViewCell {
         self.contentView.addSubview(procentLabel)
         self.backgroundColor = .systemBackground
         self.progressView.setProgress(HabitsStore.shared.todayProgress, animated: true)
+        self.procentLabel.text = "\(Int(self.progressView.progress * 100)) %"
         NSLayoutConstraint.activate([
             self.motivationLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
             self.motivationLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 12),

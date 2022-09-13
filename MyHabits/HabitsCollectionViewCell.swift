@@ -30,17 +30,23 @@ class HabitsCollectionViewCell: UICollectionViewCell {
      lazy var habitLabel: UILabel = {
         let habitLabel = UILabel()
         habitLabel.translatesAutoresizingMaskIntoConstraints = false
+         habitLabel.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         return habitLabel
     }()
     
      lazy var dateLabel: UILabel = {
         let dateLabel = UILabel()
+         dateLabel.font = UIFont.systemFont(ofSize: 12, weight: .regular)
+         dateLabel.textColor = .systemGray2
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         return dateLabel
     }()
     
     lazy var counterLabel: UILabel = {
         let counterLabel = UILabel()
+        counterLabel.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        counterLabel.textColor = .systemGray
+
         counterLabel.translatesAutoresizingMaskIntoConstraints = false
         return counterLabel
     }()

@@ -21,6 +21,7 @@ class HabitViewController: UIViewController {
     private lazy var timeLabel: UILabel = {
        let timeLabel = UILabel()
         timeLabel.text = "Каждый день в"
+        timeLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         timeLabel.translatesAutoresizingMaskIntoConstraints = false
         return timeLabel
     }()
@@ -30,7 +31,6 @@ class HabitViewController: UIViewController {
         datePicker.backgroundColor = .white
         datePicker.tintColor = .purple
         datePicker.translatesAutoresizingMaskIntoConstraints = false
-        
         return datePicker
     
     }()
@@ -39,7 +39,7 @@ class HabitViewController: UIViewController {
         let descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.text = "НАЗВАНИЕ"
-        descriptionLabel.font = UIFont(name: "SFProText-Semibold", size: 13)
+        descriptionLabel.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
         return descriptionLabel
     }()
     
@@ -47,6 +47,7 @@ class HabitViewController: UIViewController {
         let descriptionText = UITextField()
         descriptionText.translatesAutoresizingMaskIntoConstraints = false
         descriptionText.placeholder = "Бегать по утрам, спать 8 часов и т.п."
+        descriptionText.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         descriptionText.becomeFirstResponder()
         return descriptionText
     }()
@@ -62,6 +63,21 @@ class HabitViewController: UIViewController {
         return colorImage
     }()
     
+    private lazy var colorLabel: UILabel = {
+       let colorLabel = UILabel()
+        colorLabel.translatesAutoresizingMaskIntoConstraints = false
+        colorLabel.text = "ЦВЕТ"
+        colorLabel.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
+        return colorLabel
+    }()
+    
+    private lazy var time: UILabel = {
+       let timeLabel = UILabel()
+        timeLabel.translatesAutoresizingMaskIntoConstraints = false
+        timeLabel.text = "ВРЕМЯ"
+        timeLabel.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
+        return timeLabel
+    }()
     private func setupNavigationBar() {
         
         self.navigationItem.title = "Создать"
@@ -88,6 +104,8 @@ class HabitViewController: UIViewController {
         self.view.addSubview(descriptionText)
         self.view.addSubview(descriptionLabel)
         self.view.addSubview(colorImage)
+        self.view.addSubview(time)
+        self.view.addSubview(colorLabel)
 //        self.colorImage.layer.cornerRadius = self.colorImage.frame.height/2
         
       
@@ -99,17 +117,26 @@ class HabitViewController: UIViewController {
             self.descriptionText.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 16),
             self.descriptionText.topAnchor.constraint(equalTo: self.descriptionLabel.bottomAnchor, constant: 7),
             
+            self.colorLabel.topAnchor.constraint(equalTo: self.descriptionText.bottomAnchor,constant: 15),
+            self.colorLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor,constant: 16),
+            
+            self.colorImage.topAnchor.constraint(equalTo: self.colorLabel.bottomAnchor, constant: 7),
+            self.colorImage.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 16),
+            self.colorImage.widthAnchor.constraint(lessThanOrEqualTo: self.view.widthAnchor, multiplier: 0.07246),
+            self.colorImage.heightAnchor.constraint(equalTo: self.colorImage.widthAnchor),
+            
+            self.time.topAnchor.constraint(equalTo: self.colorImage.bottomAnchor, constant: 15),
+            self.time.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 16),
+        
+            self.timeLabel.topAnchor.constraint(equalTo: self.time.bottomAnchor, constant: 7),
+            self.timeLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 16),
+        
+            
             self.datePicker.centerYAnchor.constraint(equalTo: self.timeLabel.centerYAnchor),
             self.datePicker.leftAnchor.constraint(equalTo: self.timeLabel.rightAnchor, constant: 10),
             
-            self.timeLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor),
-            self.timeLabel.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 16),
-        
-            self.colorImage.topAnchor.constraint(equalTo: self.descriptionText.bottomAnchor, constant: 20),
-            self.colorImage.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 30),
-            self.colorImage.widthAnchor.constraint(lessThanOrEqualTo: self.view.widthAnchor, multiplier: 0.07246),
-            self.colorImage.heightAnchor.constraint(equalTo: self.colorImage.widthAnchor)
-            
+           
+           
             
         
         ])

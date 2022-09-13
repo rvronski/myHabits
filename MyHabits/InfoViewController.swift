@@ -17,7 +17,7 @@ class InfoViewController: UIViewController {
     
     private lazy var headerLabel: UILabel = {
        let headerLabel = UILabel()
-        headerLabel.font = UIFont(name: "SFProDisplay-Semibold", size: 20)
+        headerLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         headerLabel.text = "Привычка за 21 день"
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         return headerLabel
@@ -27,7 +27,7 @@ class InfoViewController: UIViewController {
         let firstLabel = UILabel()
         firstLabel.lineBreakMode = .byWordWrapping
         firstLabel.numberOfLines = 0
-        firstLabel.font = UIFont(name: "SFProText-Regular", size: 17)
+        firstLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         firstLabel.text = "Прохождение этапов, за которые за 21 день вырабатывается привычка, подчиняется следующему алгоритму:"
         firstLabel.translatesAutoresizingMaskIntoConstraints = false
          return firstLabel
@@ -36,7 +36,7 @@ class InfoViewController: UIViewController {
         let secondLabel = UILabel()
         secondLabel.lineBreakMode = .byWordWrapping
         secondLabel.numberOfLines = 0
-        secondLabel.font = UIFont(name: "SFProText-Regular", size: 17)
+        secondLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         secondLabel.text = "1. Провести 1 день без обращения к старым привычкам, стараться вести себя так, как будто цель, загаданная перспективу, находится на расстоянии шага."
         secondLabel.translatesAutoresizingMaskIntoConstraints = false
          return secondLabel
@@ -45,7 +45,7 @@ class InfoViewController: UIViewController {
         let thirdLabel = UILabel()
         thirdLabel.lineBreakMode = .byWordWrapping
         thirdLabel.numberOfLines = 0
-        thirdLabel.font = UIFont(name: "SFProText-Regular", size: 17)
+        thirdLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         thirdLabel.text = "2. Выдержать 2 дня в прежнем состоянии самоконтроля."
         thirdLabel.translatesAutoresizingMaskIntoConstraints = false
          return thirdLabel
@@ -54,7 +54,7 @@ class InfoViewController: UIViewController {
         let fourthLabel = UILabel()
         fourthLabel.lineBreakMode = .byWordWrapping
         fourthLabel.numberOfLines = 0
-        fourthLabel.font = UIFont(name: "SFProText-Regular", size: 17)
+        fourthLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         fourthLabel.text = "3. Отметить в дневнике первую неделю изменений и подвести первые итоги — что оказалось тяжело, что — легче, с чем еще предстоит серьезно бороться."
         fourthLabel.translatesAutoresizingMaskIntoConstraints = false
          return fourthLabel
@@ -63,7 +63,7 @@ class InfoViewController: UIViewController {
         let fifthLabel = UILabel()
         fifthLabel.lineBreakMode = .byWordWrapping
         fifthLabel.numberOfLines = 0
-        fifthLabel.font = UIFont(name: "SFProText-Regular", size: 17)
+        fifthLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         fifthLabel.text = "4. Поздравить себя с прохождением первого серьезного порога в 21 день. За это время отказ от дурных наклонностей уже примет форму осознанного преодоления и человек сможет больше работать в сторону принятия положительных качеств."
         fifthLabel.translatesAutoresizingMaskIntoConstraints = false
         return fifthLabel
@@ -72,7 +72,7 @@ class InfoViewController: UIViewController {
         let sixthLabel = UILabel()
         sixthLabel.lineBreakMode = .byWordWrapping
         sixthLabel.numberOfLines = 0
-        sixthLabel.font = UIFont(name: "SFProText-Regular", size: 17)
+        sixthLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         sixthLabel.text = "5. Держать планку 40 дней. Практикующий методику уже чувствует себя освободившимся от прошлого негатива и двигается в нужном направлении с хорошей динамикой."
         sixthLabel.translatesAutoresizingMaskIntoConstraints = false
          return sixthLabel
@@ -81,7 +81,7 @@ class InfoViewController: UIViewController {
         let seventhLabel = UILabel()
         seventhLabel.lineBreakMode = .byWordWrapping
         seventhLabel.numberOfLines = 0
-        seventhLabel.font = UIFont(name: "SFProText-Regular", size: 17)
+        seventhLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         seventhLabel.text = "6. На 90-й день соблюдения техники все лишнее из «прошлой жизни» перестает напоминать о себе, и человек, оглянувшись назад, осознает себя полностью обновившимся."
         seventhLabel.translatesAutoresizingMaskIntoConstraints = false
          return seventhLabel
