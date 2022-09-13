@@ -47,7 +47,12 @@ class HabitsCollectionViewCell: UICollectionViewCell {
     
      lazy var circleImage: UIImageView = {
         let circleImage = UIImageView()
-        circleImage.image = UIImage(systemName: "circle")
+//         circleImage.image = if HabitsStore.shared.habits[self.indexPath!.row].isAlreadyTakenToday == false {
+//             UIImage(systemName: "circle")
+//
+//             } else {
+//          UIImage(systemName: "checkmark.circle.fill")
+//             }
         circleImage.isUserInteractionEnabled = true
         circleImage.translatesAutoresizingMaskIntoConstraints = false
         return circleImage
@@ -113,4 +118,4 @@ class HabitsCollectionViewCell: UICollectionViewCell {
         
         ])
     }
-}
+     }

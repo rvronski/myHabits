@@ -166,12 +166,13 @@ class HabitViewController: UIViewController {
         let store = HabitsStore.shared
         store.habits.append(newHabit)
         let collection = HabitsViewController().habitsCollectionView
-//        restartApplication()private func reloadData(displayedExercise: Exercise){
+        restartApplication()
     
 //        self.view.setNeedsDisplay()
-//        collection.reloadData()
-        self.delegate?.reload()
+//       
+//        self.delegate?.reload()
         self.dismiss(animated: true, completion: nil)
+        collection.reloadData()
         
     }
 }

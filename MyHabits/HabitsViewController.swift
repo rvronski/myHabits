@@ -9,6 +9,11 @@ import UIKit
 
 class HabitsViewController: UIViewController {
     
+     lazy var detailView: HabitDetailsViewController = {
+        let detail = HabitDetailsViewController()
+        detail.delegate = self
+        return detail 
+    }()
      lazy var collectionLayout: UICollectionViewFlowLayout = {
         let collectionLayout = UICollectionViewFlowLayout()
         collectionLayout.scrollDirection = .vertical
@@ -81,26 +86,30 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
     
    
     func tapCircle(cell: HabitsCollectionViewCell) {
+        
         let collection = self.habitsCollectionView
-//        if let collection = UICollectionView() {
-//            let index = collection.indexPath(for: self)
-//        let i = collection.indexPath(for: cell)?.item
-        guard let index = collection.indexPath(for:cell )?.item else {return}
-        print(index)
-        
+        guard let index = collection.indexPath(for:cell )?.row else {return}
         let hab = HabitsStore.shared.habits[index]
-        HabitsStore.shared.track(hab)
-        cell.circleImage.image = UIImage(systemName: "checkmark.circle.fill")
-        
-        reload()
+        if hab.isAlreadyTakenToday == false {
+            HabitsStore.shared.track(hab)
+//            collection.reloadItems(at: [IndexPath.init(row: index, section: 1)])
+            collection.reloadData()
+//            cell.circleImage.image = UIImage(systemName: "checkmark.circle.fill")
+        }
+
+      
     }
     
 
     
-    func deleteItem(indexPath: IndexPath) {
-        HabitsStore.shared.habits.remove(at: indexPath.item)
-        self.habitsCollectionView.deleteItems(at: [indexPath])
-        self.habitsCollectionView.delegate = self
+    func deleteItem(cell: HabitsCollectionViewCell) {
+        let collection = self.habitsCollectionView
+        guard let index = collection.indexPath(for: cell )?.row else {return}
+        HabitsStore.shared.habits.remove(at: index)
+//        self.habitsCollectionView.deleteItems(at: [index])
+        self.detailView.delegate = self
+        collection.reloadData()
+        print("i work!!!!")
     }
     
    
@@ -128,6 +137,11 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
         }
         cell.setup(with: HabitsStore.shared.habits[indexPath.row])
         cell.delegate = self
+        if HabitsStore.shared.habits[indexPath.row].isAlreadyTakenToday == false {
+            cell.circleImage.image = UIImage(systemName: "circle")
+        } else {
+            cell.circleImage.image = UIImage(systemName: "checkmark.circle.fill")}
+        self.detailView.delegate = self
         return cell
         
     }

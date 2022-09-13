@@ -7,13 +7,20 @@
 
 import UIKit
 protocol HabitDetailsViewDelegate: AnyObject {
-    func deleteItem(indexPath: IndexPath)
+    func deleteItem(cell: HabitsCollectionViewCell)
 }
 class  HabitDetailsViewController: UIViewController {
-//    private lazy var collectionViewCell = HabitsCollectionViewCell()
+    private lazy var viewController: HabitsViewController = {
+    let vc = HabitsViewController()
+    
+        return vc
+}()
     private lazy var tableView: UITableView = {
-       let tableView = UITableView()
+        let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register( HabitsTableViewCell.self, forCellReuseIdentifier: "CellDate" )
         return tableView
         
     }()
@@ -45,10 +52,14 @@ class  HabitDetailsViewController: UIViewController {
      var habit = HabitsStore.shared.habits
       if let index = habit.firstIndex(where: {$0.name == self.navigationItem.title }) {
           habit.remove(at: index)
+          print(index)
       }
+      
 //      habit.removeAll()
-      vc.restartApplication()
-      self.delegate?.deleteItem(indexPath: IndexPath.init())
+//      vc.restartApplication()
+    
+//      self.delegate?.deleteItem(cell: vc)
+      print(habit)
       self.navigationController?.popViewController(animated: true)
       
    
@@ -69,4 +80,19 @@ class  HabitDetailsViewController: UIViewController {
         
         ])
     }
+}
+  
+extension HabitDetailsViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CellDate", for: indexPath) as! HabitsTableViewCell
+        cell.setupTableView(with: HabitsStore.shared.dates[indexPath.row])
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        HabitsStore.shared.dates.count
+    }
+    
 }
