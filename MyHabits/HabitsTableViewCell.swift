@@ -26,7 +26,7 @@ class HabitsTableViewCell: UITableViewCell {
     }
     
     func setupTableView(with viewModel: Date) {
-        self.dateLabel.text = viewModel.ISO8601Format(.iso8601)
+        self.dateLabel.text = viewModel.formatted(date: .long, time: .omitted)
     }
     private func setupView() {
         self.contentView.addSubview(dateLabel)

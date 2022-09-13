@@ -21,6 +21,8 @@ class ProgressCollectionViewCell: UICollectionViewCell {
     private lazy var progressView: UIProgressView = {
        let progress = UIProgressView()
         progress.translatesAutoresizingMaskIntoConstraints = false
+        progress.progressTintColor = .purple
+        
         return progress
     }()
     

@@ -46,9 +46,17 @@ class  HabitDetailsViewController: UIViewController {
     @objc func popVC() {
         self.navigationController?.popViewController(animated: true)
     }
+    var habit: Habit
+    init(habit: Habit) {
+        self.habit = habit
+            super.init(nibName: nil, bundle: nil)
+        }
     
-  @objc func deleteHabit() {
-      let vc = HabitViewController()
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    @objc func deleteHabit() {
+//      let vc = HabitViewController()
      var habit = HabitsStore.shared.habits
       if let index = habit.firstIndex(where: {$0.name == self.navigationItem.title }) {
           habit.remove(at: index)
@@ -93,6 +101,7 @@ extension HabitDetailsViewController: UITableViewDataSource, UITableViewDelegate
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         HabitsStore.shared.dates.count
+        
     }
     
 }

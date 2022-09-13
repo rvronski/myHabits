@@ -9,11 +9,11 @@ import UIKit
 
 class HabitsViewController: UIViewController {
     
-     lazy var detailView: HabitDetailsViewController = {
-        let detail = HabitDetailsViewController()
-        detail.delegate = self
-        return detail 
-    }()
+//     lazy var detailView: HabitDetailsViewController = {
+//         let detail = HabitDetailsViewController(habit: <#Habit#>)
+//        detail.delegate = self
+//        return detail
+//    }()
      lazy var collectionLayout: UICollectionViewFlowLayout = {
         let collectionLayout = UICollectionViewFlowLayout()
         collectionLayout.scrollDirection = .vertical
@@ -107,7 +107,7 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
         guard let index = collection.indexPath(for: cell )?.row else {return}
         HabitsStore.shared.habits.remove(at: index)
 //        self.habitsCollectionView.deleteItems(at: [index])
-        self.detailView.delegate = self
+//        self.detailView.delegate = self
         collection.reloadData()
         print("i work!!!!")
     }
@@ -141,7 +141,7 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
             cell.circleImage.image = UIImage(systemName: "circle")
         } else {
             cell.circleImage.image = UIImage(systemName: "checkmark.circle.fill")}
-        self.detailView.delegate = self
+//        self.detailView.delegate = self
         return cell
         
     }
@@ -160,16 +160,13 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section > 0 {
-        let details = HabitDetailsViewController()
-         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HabitsCell", for: indexPath) as! HabitsCollectionViewCell
-        cell.setup(with: HabitsStore.shared.habits[indexPath.row])
-            
-        
-        details.navigationItem.title = cell.habitLabel.text
-        self.navigationController?.pushViewController(details, animated: true)
+        if indexPath.section != 0 {
+            let controller = HabitDetailsViewController(habit: HabitsStore.shared.habits[indexPath.item])
+            self.navigationController?.pushViewController(controller, animated: true)
         }
+        
     }
+    
 }
 extension HabitsViewController: HabitViewControllerDelegate {
     func reload() {
