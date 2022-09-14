@@ -10,20 +10,9 @@ import UIKit
 protocol HabitsCollectionViewCellDelegate {
     func tapCircle(cell: HabitsCollectionViewCell)
 }
-//extension UIResponder {
-//    /**
-//     * Returns the next responder in the responder chain cast to the given type, or
-//     * if nil, recurses the chain until the next responder is nil or castable.
-//     */
-//    func next<U: UIResponder>(of type: U.Type = U.self) -> U? {
-//        return self.next.flatMap({ $0 as? U ?? $0.next() })
-//    }
-//}
+
 class HabitsCollectionViewCell: UICollectionViewCell {
     
-//    var collectionView: UICollectionView? {
-//            return self.next(of: UICollectionView.self)
-//        }
         var indexPath: IndexPath? 
     
     
@@ -53,19 +42,12 @@ class HabitsCollectionViewCell: UICollectionViewCell {
     
      lazy var circleImage: UIImageView = {
         let circleImage = UIImageView()
-//         circleImage.image = if HabitsStore.shared.habits[self.indexPath!.row].isAlreadyTakenToday == false {
-//             UIImage(systemName: "circle")
-//
-//             } else {
-//          UIImage(systemName: "checkmark.circle.fill")
-//             }
         circleImage.isUserInteractionEnabled = true
         circleImage.translatesAutoresizingMaskIntoConstraints = false
         return circleImage
     }()
     override func layoutSubviews() {
         super.layoutSubviews()
-//        self.circleImage.layer.cornerRadius = self.circleImage.frame.height/2
         self.layer.cornerRadius = 8
     }
     

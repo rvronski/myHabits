@@ -14,7 +14,12 @@ class HabitsTableViewCell: UITableViewCell {
         dateLabel.translatesAutoresizingMaskIntoConstraints = false
         return dateLabel
     }()
-    
+     lazy var trackImage: UIImageView = {
+        let trackImage = UIImageView()
+        trackImage.image = UIImage(systemName: "checkmark")
+        trackImage.translatesAutoresizingMaskIntoConstraints = false
+        return trackImage
+    }()
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -30,6 +35,7 @@ class HabitsTableViewCell: UITableViewCell {
     }
     private func setupView() {
         self.contentView.addSubview(dateLabel)
+        self.contentView.addSubview(trackImage)
         
         NSLayoutConstraint.activate([
         
@@ -37,7 +43,9 @@ class HabitsTableViewCell: UITableViewCell {
             self.dateLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor,constant: -11),
             self.dateLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor,constant: 16),
             
-        
+            self.trackImage.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor),
+            self.trackImage.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -14),
+            
         ])
     }
 }

@@ -9,11 +9,6 @@ import UIKit
 
 class HabitsViewController: UIViewController {
     
-//     lazy var detailView: HabitDetailsViewController = {
-//         let detail = HabitDetailsViewController(habit: <#Habit#>)
-//        detail.delegate = self
-//        return detail
-//    }()
      lazy var collectionLayout: UICollectionViewFlowLayout = {
         let collectionLayout = UICollectionViewFlowLayout()
         collectionLayout.scrollDirection = .vertical
@@ -82,7 +77,7 @@ class HabitsViewController: UIViewController {
     }
     
 }
-extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, HabitDetailsViewDelegate, HabitsCollectionViewCellDelegate {
+extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, HabitsCollectionViewCellDelegate {
     
    
     func tapCircle(cell: HabitsCollectionViewCell) {
@@ -92,27 +87,16 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
         let hab = HabitsStore.shared.habits[index]
         if hab.isAlreadyTakenToday == false {
             HabitsStore.shared.track(hab)
-//            collection.reloadItems(at: [IndexPath.init(row: index, section: 1)])
-            collection.reloadData()
-//            cell.circleImage.image = UIImage(systemName: "checkmark.circle.fill")
+            
+           
+            
         }
-
-      
+        collection.reloadSections([0,1])
+    }
+    func reload() {
+        self.habitsCollectionView.reloadData()
     }
     
-
-    
-    func deleteItem(cell: HabitsCollectionViewCell) {
-        let collection = self.habitsCollectionView
-        guard let index = collection.indexPath(for: cell )?.row else {return}
-        HabitsStore.shared.habits.remove(at: index)
-//        self.habitsCollectionView.deleteItems(at: [index])
-//        self.detailView.delegate = self
-        collection.reloadData()
-        print("i work!!!!")
-    }
-    
-   
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         2
     }
@@ -168,10 +152,5 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
     }
     
 }
-extension HabitsViewController: HabitViewControllerDelegate {
-    func reload() {
-        self.habitsCollectionView.reloadData()
-    }
-    
-    
-}
+
+   
