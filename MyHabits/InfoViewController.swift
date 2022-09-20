@@ -15,80 +15,30 @@ class InfoViewController: UIViewController {
         return scrollView
     }()
     
-    private lazy var headerLabel: UILabel = {
-       let headerLabel = UILabel()
+    private var headerLabel: UILabel = {
+        let headerLabel = UILabel()
         headerLabel.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         headerLabel.text = "Привычка за 21 день"
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         return headerLabel
     }()
     
-    private lazy var firstLabel: UILabel = {
-        let firstLabel = UILabel()
-        firstLabel.lineBreakMode = .byWordWrapping
-        firstLabel.numberOfLines = 0
-        firstLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        firstLabel.text = "Прохождение этапов, за которые за 21 день вырабатывается привычка, подчиняется следующему алгоритму:"
-        firstLabel.translatesAutoresizingMaskIntoConstraints = false
-         return firstLabel
-    }()
-    private lazy var secondLabel: UILabel = {
-        let secondLabel = UILabel()
-        secondLabel.lineBreakMode = .byWordWrapping
-        secondLabel.numberOfLines = 0
-        secondLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        secondLabel.text = "1. Провести 1 день без обращения к старым привычкам, стараться вести себя так, как будто цель, загаданная перспективу, находится на расстоянии шага."
-        secondLabel.translatesAutoresizingMaskIntoConstraints = false
-         return secondLabel
-    }()
-    private lazy var thirdLabel: UILabel = {
-        let thirdLabel = UILabel()
-        thirdLabel.lineBreakMode = .byWordWrapping
-        thirdLabel.numberOfLines = 0
-        thirdLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        thirdLabel.text = "2. Выдержать 2 дня в прежнем состоянии самоконтроля."
-        thirdLabel.translatesAutoresizingMaskIntoConstraints = false
-         return thirdLabel
-    }()
-    private lazy var fourthLabel: UILabel = {
-        let fourthLabel = UILabel()
-        fourthLabel.lineBreakMode = .byWordWrapping
-        fourthLabel.numberOfLines = 0
-        fourthLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        fourthLabel.text = "3. Отметить в дневнике первую неделю изменений и подвести первые итоги — что оказалось тяжело, что — легче, с чем еще предстоит серьезно бороться."
-        fourthLabel.translatesAutoresizingMaskIntoConstraints = false
-         return fourthLabel
-    }()
-    private lazy var fifthLabel: UILabel = {
-        let fifthLabel = UILabel()
-        fifthLabel.lineBreakMode = .byWordWrapping
-        fifthLabel.numberOfLines = 0
-        fifthLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        fifthLabel.text = "4. Поздравить себя с прохождением первого серьезного порога в 21 день. За это время отказ от дурных наклонностей уже примет форму осознанного преодоления и человек сможет больше работать в сторону принятия положительных качеств."
-        fifthLabel.translatesAutoresizingMaskIntoConstraints = false
-        return fifthLabel
-    }()
-    private lazy var sixthLabel: UILabel = {
-        let sixthLabel = UILabel()
-        sixthLabel.lineBreakMode = .byWordWrapping
-        sixthLabel.numberOfLines = 0
-        sixthLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        sixthLabel.text = "5. Держать планку 40 дней. Практикующий методику уже чувствует себя освободившимся от прошлого негатива и двигается в нужном направлении с хорошей динамикой."
-        sixthLabel.translatesAutoresizingMaskIntoConstraints = false
-         return sixthLabel
-    }()
-    private lazy var seventhLabel: UILabel = {
-        let seventhLabel = UILabel()
-        seventhLabel.lineBreakMode = .byWordWrapping
-        seventhLabel.numberOfLines = 0
-        seventhLabel.font = UIFont.systemFont(ofSize: 17, weight: .regular)
-        seventhLabel.text = "6. На 90-й день соблюдения техники все лишнее из «прошлой жизни» перестает напоминать о себе, и человек, оглянувшись назад, осознает себя полностью обновившимся."
-        seventhLabel.translatesAutoresizingMaskIntoConstraints = false
-         return seventhLabel
-    }()
+    private let firstLabel = InfoLabels(inform: "Прохождение этапов, за которые за 21 день вырабатывается привычка, подчиняется следующему алгоритму:", frame: .zero)
+    
+    private let secondLabel = InfoLabels(inform: "1. Провести 1 день без обращения к старым привычкам, стараться вести себя так, как будто цель, загаданная перспективу, находится на расстоянии шага.", frame: .zero)
+    
+    private let thirdLabel = InfoLabels(inform: "2. Выдержать 2 дня в прежнем состоянии самоконтроля.", frame: .zero)
+    
+    private let fourthLabel = InfoLabels(inform: "3. Отметить в дневнике первую неделю изменений и подвести первые итоги — что оказалось тяжело, что — легче, с чем еще предстоит серьезно бороться.", frame: .zero)
+    
+    private let fifthLabel = InfoLabels(inform: "4. Поздравить себя с прохождением первого серьезного порога в 21 день. За это время отказ от дурных наклонностей уже примет форму осознанного преодоления и человек сможет больше работать в сторону принятия положительных качеств.", frame: .zero)
+    
+    private let sixthLabel = InfoLabels(inform: "5. Держать планку 40 дней. Практикующий методику уже чувствует себя освободившимся от прошлого негатива и двигается в нужном направлении с хорошей динамикой.", frame: .zero)
+    
+    private let seventhLabel = InfoLabels(inform: "6. На 90-й день соблюдения техники все лишнее из «прошлой жизни» перестает напоминать о себе, и человек, оглянувшись назад, осознает себя полностью обновившимся.", frame: .zero)
     
     private var labelsStack: UIStackView = {
-      let labelsStack = UIStackView()
+        let labelsStack = UIStackView()
         labelsStack.spacing = 12
         labelsStack.axis = .vertical
         labelsStack.translatesAutoresizingMaskIntoConstraints = false
@@ -129,7 +79,7 @@ class InfoViewController: UIViewController {
             self.labelsStack.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -16),
             self.labelsStack.bottomAnchor.constraint(equalTo: self.scrollView.bottomAnchor, constant: -16),
             
-            ])
-            }
-            
+        ])
+    }
+    
 }

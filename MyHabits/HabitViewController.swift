@@ -47,6 +47,7 @@ class HabitViewController: UIViewController {
         descriptionText.placeholder = "Бегать по утрам, спать 8 часов и т.п."
         descriptionText.font = UIFont.systemFont(ofSize: 17, weight: .regular)
         descriptionText.becomeFirstResponder()
+        descriptionText.text = " "
         return descriptionText
     }()
     private lazy var colorImage: UIImageView = {
@@ -181,14 +182,21 @@ class HabitViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @objc func saveHabit() {
-        let name = descriptionText.text ?? "Без названия"
+    @objc func saveHabit() throws -> Void {
+        
+            
+        let name = descriptionText.text ?? " "
         let date = datePicker.date
         let color = colorImage.backgroundColor ?? .clear
-        let newHabit = Habit(name: name,
+        
+            let newHabit = Habit(name: name,
                              date: date,
                              color: color)
+           
         let store = HabitsStore.shared
+        if newHabit.name == " " {
+            tapAlert()
+        } else {
         store.habits.append(newHabit)
         let collection = HabitsViewController().habitsCollectionView
         restartApplication()
@@ -196,9 +204,25 @@ class HabitViewController: UIViewController {
 
         self.dismiss(animated: true, completion: nil)
         collection.reloadData()
-        
+        }
+        }
+    
+     func tapAlert()  {
+        let alertControler = UIAlertController(title: "Не задано название для привычки", message: "Не возможно сохранить привычку без названия", preferredStyle: .alert)
+        let firstAction = UIAlertAction(title: "Ok", style: .default){ _ in
+            self.descriptionText.becomeFirstResponder()
+        }
+
+        alertControler.addAction(firstAction)
+         self.present(alertControler, animated: true)
+
     }
+
 }
+
+    
+
+                    
 extension HabitViewController: UIColorPickerViewControllerDelegate {
     
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
@@ -212,3 +236,4 @@ extension HabitViewController: UIColorPickerViewControllerDelegate {
     }
     
 }
+

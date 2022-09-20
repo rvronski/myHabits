@@ -81,17 +81,17 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
     
    
     func tapCircle(cell: HabitsCollectionViewCell) {
-        
+        let vc = HabitViewController()
         let collection = self.habitsCollectionView
         guard let index = collection.indexPath(for:cell )?.row else {return}
         let hab = HabitsStore.shared.habits[index]
         if hab.isAlreadyTakenToday == false {
             HabitsStore.shared.track(hab)
-            
-           
+//            collection.reloadData()
+            vc.restartApplication()
             
         }
-        collection.reloadSections([0,1])
+       
     }
     func reload() {
         self.habitsCollectionView.reloadData()
@@ -146,6 +146,7 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section != 0 {
             let controller = HabitDetailsViewController(habit: HabitsStore.shared.habits[indexPath.item])
+            controller.navigationItem.title = HabitsStore.shared.habits[indexPath.item].name
             self.navigationController?.pushViewController(controller, animated: true)
         }
         

@@ -239,7 +239,13 @@ class HabitEditViewController: UIViewController {
                              date: date,
                              color: color)
         let store = HabitsStore.shared
-        store.habits.append(newHabit)
+//        guard newHabit != self.habit else {return}
+//        store.habits.append(newHabit)
+        if let index = store.habits.firstIndex(where: {$0 == habit}) {
+            store.habits[index] = newHabit
+        }
+        
+//        store.habits[habit] = newHabit.self
         restartApplication()
         self.navigationController?.popToRootViewController(animated: true)
         
