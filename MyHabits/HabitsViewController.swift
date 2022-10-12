@@ -28,7 +28,7 @@ class HabitsViewController: UIViewController {
         habitsCollection.delegate = self
         habitsCollection.dataSource = self
         habitsCollection.translatesAutoresizingMaskIntoConstraints = false
-        
+    
         return habitsCollection
     }()
 
@@ -87,14 +87,11 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
         let hab = HabitsStore.shared.habits[index]
         if hab.isAlreadyTakenToday == false {
             HabitsStore.shared.track(hab)
-//            collection.reloadData()
-            vc.restartApplication()
             
+            vc.restartApplication()
+        
         }
-       
-    }
-    func reload() {
-        self.habitsCollectionView.reloadData()
+//        self.habitsCollectionView.reloadData()
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -125,7 +122,7 @@ extension HabitsViewController: UICollectionViewDelegateFlowLayout, UICollection
             cell.circleImage.image = UIImage(systemName: "circle")
         } else {
             cell.circleImage.image = UIImage(systemName: "checkmark.circle.fill")}
-//        self.detailView.delegate = self
+        
         return cell
         
     }

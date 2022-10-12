@@ -23,20 +23,20 @@
                                 <color key="highlightedColor" systemColor="linkColor"/>
                                 <size key="shadowOffset" width="13" height="-1"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="AppIcon-1024px" translatesAutoresizingMaskIntoConstraints="NO" id="zEj-2R-P42">
-                                <rect key="frame" x="147" y="359" width="120" height="120"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIcon-1024px" translatesAutoresizingMaskIntoConstraints="NO" id="zEj-2R-P42">
+                                <rect key="frame" x="147" y="368.5" width="120" height="120"/>
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="17" scale="large" weight="semibold"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="zEj-2R-P42" secondAttribute="trailing" constant="147" id="5ZQ-vQ-tvu"/>
-                            <constraint firstItem="zEj-2R-P42" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.133929" id="9yf-lt-1oQ"/>
+                            <constraint firstItem="zEj-2R-P42" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="4la-wL-OUY"/>
                             <constraint firstItem="zEj-2R-P42" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.289855" id="DR6-o7-YYZ"/>
                             <constraint firstItem="rbr-xg-Joc" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="V7o-mK-lxV"/>
-                            <constraint firstItem="zEj-2R-P42" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="147" id="a7i-Lb-DkT"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="rbr-xg-Joc" secondAttribute="bottom" id="an0-dM-VhI"/>
+                            <constraint firstItem="zEj-2R-P42" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="YXT-GZ-lln"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="rbr-xg-Joc" secondAttribute="bottom" id="ftZ-IK-w5Q"/>
+                            <constraint firstItem="zEj-2R-P42" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.133929" id="kIT-3W-OMk"/>
                         </constraints>
                     </view>
                     <toolbarItems/>

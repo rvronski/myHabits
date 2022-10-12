@@ -26,7 +26,6 @@ class ProgressCollectionViewCell: UICollectionViewCell {
         
         return progress
     }()
-    
     private lazy var procentLabel: UILabel = {
         let procentLabel = UILabel()
         procentLabel.font = UIFont.systemFont(ofSize: 13, weight: .semibold)

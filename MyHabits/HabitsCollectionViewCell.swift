@@ -74,6 +74,7 @@ class HabitsCollectionViewCell: UICollectionViewCell {
         self.circleImage.addGestureRecognizer(circleGesture)
     }
     @objc func circleTap() {
+       
         self.delegate?.tapCircle(cell: self)
        
        
