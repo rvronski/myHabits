@@ -1,0 +1,73 @@
+//
+//  ProgressColectionViewCell.swift
+//  MyHabits
+//
+//  Created by ROMAN VRONSKY on 06.09.2022.
+//
+
+import UIKit
+
+class ProgressCollectionViewCell: UICollectionViewCell {
+    
+    private lazy var motivationLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Всё получится!"
+        label.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
+        label.textColor = .systemGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var progressView: UIProgressView = {
+       let progress = UIProgressView()
+        progress.translatesAutoresizingMaskIntoConstraints = false
+        progress.progressTintColor = .purple
+        progress.setProgress(HabitsStore.shared.todayProgress, animated: true)
+        
+        return progress
+    }()
+    private lazy var procentLabel: UILabel = {
+        let procentLabel = UILabel()
+        procentLabel.font = UIFont.systemFont(ofSize: 13, weight: .semibold)
+        procentLabel.textColor = .systemGray
+        procentLabel.translatesAutoresizingMaskIntoConstraints = false
+        procentLabel.text = "\(Int(self.progressView.progress * 100)) %"
+        return procentLabel
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setupView()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    func setup(with viewModel: Habit) {
+        
+    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.layer.cornerRadius = 8
+    }
+    
+    private func setupView() {
+        self.contentView.addSubview(motivationLabel)
+        self.contentView.addSubview(progressView)
+        self.contentView.addSubview(procentLabel)
+        self.backgroundColor = .systemBackground
+        
+        NSLayoutConstraint.activate([
+            self.motivationLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 10),
+            self.motivationLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 12),
+            
+            self.progressView.topAnchor.constraint(equalTo: self.motivationLabel.bottomAnchor, constant: 10),
+            self.progressView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 12),
+            self.progressView.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -12),
+            self.progressView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -15),
+            
+            self.procentLabel.centerYAnchor.constraint(equalTo: self.motivationLabel.centerYAnchor),
+            self.procentLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -12),
+        ])
+    }
+}
